@@ -99,7 +99,9 @@ export function parsePubArea(pubArea: Uint8Array): ParsedPubArea {
 
     const uniqueY = pubArea.slice(pointer, pointer += uniqueYLength);
 
-    unique = isoUint8Array.concat([uniqueX, uniqueY]);
+    const concatenated = isoUint8Array.concat([uniqueX, uniqueY]);
+    unique = new Uint8Array(new ArrayBuffer(concatenated.length));
+    unique.set(concatenated);
   } else {
     throw new Error(`Unexpected type "${type}" (TPM)`);
   }

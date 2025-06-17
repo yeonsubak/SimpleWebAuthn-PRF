@@ -7,8 +7,8 @@ import {
   assertRejects,
   assertStringIncludes,
 } from '@std/assert';
-import { assertSpyCalls, type Spy, spy, stub } from '@std/testing/mock';
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd';
+import { assertSpyCalls, type Spy, spy, stub } from '@std/testing/mock';
 import { JSDOM } from 'jsdom';
 import type {
   AuthenticationExtensionsClientInputs,
@@ -16,12 +16,12 @@ import type {
   PublicKeyCredentialRequestOptionsJSON,
 } from '../types/index.ts';
 
+import { generateCustomError } from '../helpers/__jest__/generateCustomError.ts';
 import { _browserSupportsWebAuthnInternals } from '../helpers/browserSupportsWebAuthn.ts';
 import { _browserSupportsWebAuthnAutofillInternals } from '../helpers/browserSupportsWebAuthnAutofill.ts';
-import { bufferToBase64URLString } from '../helpers/bufferToBase64URLString.ts';
-import { WebAuthnError } from '../helpers/webAuthnError.ts';
-import { generateCustomError } from '../helpers/__jest__/generateCustomError.ts';
+import { uInt8ArrayToBase64URLString } from '../helpers/bufferToBase64URLString.ts';
 import { WebAuthnAbortService } from '../helpers/webAuthnAbortService.ts';
+import { WebAuthnError } from '../helpers/webAuthnError.ts';
 
 import { startAuthentication } from './startAuthentication.ts';
 
@@ -41,7 +41,7 @@ const goodOpts1: PublicKeyCredentialRequestOptionsJSON = {
 
 // With UTF-8 challenge
 const goodOpts2UTF8: PublicKeyCredentialRequestOptionsJSON = {
-  challenge: bufferToBase64URLString(new TextEncoder().encode('やれやれだぜ')),
+  challenge: uInt8ArrayToBase64URLString(new TextEncoder().encode('やれやれだぜ')),
   allowCredentials: [],
   timeout: 1,
 };

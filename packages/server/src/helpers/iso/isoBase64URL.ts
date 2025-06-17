@@ -33,7 +33,11 @@ export function fromBuffer(
   buffer: Uint8Array,
   to: 'base64' | 'base64url' = 'base64url',
 ): string {
-  return base64.fromArrayBuffer(buffer, to === 'base64url');
+  const safeBuffer = buffer.buffer instanceof ArrayBuffer
+    ? buffer.buffer
+    : new Uint8Array(buffer).buffer;
+
+  return base64.fromArrayBuffer(safeBuffer, to === 'base64url');
 }
 
 /**

@@ -6,6 +6,10 @@
  */
 export function bufferToBase64URLString(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
+  return uInt8ArrayToBase64URLString(bytes);
+}
+
+export function uInt8ArrayToBase64URLString(bytes: Uint8Array<ArrayBufferLike>) {
   let str = '';
 
   for (const charCode of bytes) {
